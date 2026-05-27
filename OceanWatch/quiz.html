@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — OceanWatch</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding: 140px 0 60px; background: radial-gradient(ellipse at 50% 0%, rgba(14,58,92,0.6) 0%, transparent 70%); border-bottom: 1px solid rgba(20,198,204,0.1); text-align: center; }
+
+    .quiz-wrap { max-width: 720px; margin: 0 auto; }
+
+    .progress-bar { height: 4px; background: rgba(20,198,204,0.15); border-radius: 2px; margin-bottom: 2.5rem; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--glow), var(--teal)); border-radius: 2px; transition: width 0.4s ease; }
+
+    .q-counter { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+
+    .question-card {
+      background: var(--ocean);
+      border: 1px solid rgba(20,198,204,0.15);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .question-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 2rem;
+    }
+
+    .options { display: grid; gap: 0.75rem; }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(10,37,64,0.6);
+      border: 1px solid rgba(20,198,204,0.12);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .option:hover { border-color: rgba(20,198,204,0.4); color: var(--white); background: rgba(14,58,92,0.8); }
+
+    .option.selected { border-color: var(--glow); color: var(--white); background: rgba(20,198,204,0.08); }
+    .option.correct { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #86efac; }
+    .option.wrong { border-color: var(--danger); background: rgba(224,92,58,0.1); color: #fca5a5; }
+    .option.disabled { pointer-events: none; }
+
+    .option-letter {
+      width: 28px; height: 28px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .feedback-box {
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-box.correct { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
+    .feedback-box.wrong { background: rgba(224,92,58,0.1); border: 1px solid rgba(224,92,58,0.3); color: #fca5a5; }
+
+    .quiz-nav { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+
+    .score-card {
+      background: var(--ocean);
+      border: 1px solid rgba(20,198,204,0.2);
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      display: none;
+    }
+
+    .score-circle {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto 2rem;
+      background: rgba(20,198,204,0.05);
+    }
+
+    .score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--glow);
+      line-height: 1;
+    }
+
+    .score-total { font-size: 0.8rem; color: var(--muted); }
+    .score-msg { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 0.75rem; }
+    .score-sub { color: var(--muted); margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ocean<span>Watch</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="facts.html">Facts</a></li>
+    <li><a href="quiz.html" class="active">Quiz</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="action.html">Take Action</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-tag">Test Your Knowledge</span>
+    <h1 class="section-title">Ocean Quiz</h1>
+    <p class="section-sub" style="margin: 0 auto;">How much do you know about the state of our oceans? Answer 6 questions and find out.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="quiz-wrap">
+      <div id="quiz-area">
+        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+        <div class="q-counter" id="q-counter">Question 1 of 6</div>
+        <div class="question-card">
+          <div class="question-text" id="question-text"></div>
+          <div class="options" id="options"></div>
+          <div class="feedback-box" id="feedback"></div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none;">Next Question →</button>
+        </div>
+      </div>
+      <div class="score-card" id="score-card">
+        <div class="score-circle">
+          <span class="score-num" id="score-num">0</span>
+          <span class="score-total" id="score-total">/ 6</span>
+        </div>
+        <div class="score-msg" id="score-msg"></div>
+        <p class="score-sub" id="score-sub"></p>
+        <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+        <a href="facts.html" class="btn btn-outline" style="margin-left:1rem;">Read the Facts</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>OceanWatch — Built in support of <a href="https://sdgs.un.org/goals/goal14">UN SDG 14: Life Below Water</a></p>
+    <p style="margin-top:0.5rem; font-size:0.75rem;">Edward Rainer Hendrawan · 0374417 · Taylor's University</p>
+  </div>
+</footer>
+
+<script>
+  const questions = [
+    {
+      q: "How much of the world's oxygen does the ocean produce?",
+      options: ["About 10%", "About 25%", "About 50%", "About 75%"],
+      answer: 2,
+      feedback: "Correct! The ocean produces approximately 50% of the Earth's oxygen and absorbs 25% of all CO₂ emissions. (Source: UNEP, 2024)"
+    },
+    {
+      q: "How many metric tons of plastic entered the ocean in 2021?",
+      options: ["5 million", "17 million", "50 million", "100 million"],
+      answer: 1,
+      feedback: "That's right — over 17 million metric tons of plastic entered the ocean in 2021 alone, and this is expected to double or triple by 2040. (Source: United Nations, 2024)"
+    },
+    {
+      q: "What percentage of the world's coral reefs have been lost?",
+      options: ["10%", "25%", "50%", "75%"],
+      answer: 2,
+      feedback: "Correct. 50% of the world's coral reefs have been lost due to warming, pollution, and overfishing. (Source: CUHK, 2024)"
+    },
+    {
+      q: "By how much has ocean acidity increased since the industrial revolution?",
+      options: ["5%", "10%", "26%", "50%"],
+      answer: 2,
+      feedback: "Ocean acidity has increased by 26% since the industrial revolution and could double or triple by 2100 if emissions are not reduced. (Source: Eurostat, 2024)"
+    },
+    {
+      q: "What percentage of marine pollution comes from land-based human activities?",
+      options: ["40%", "60%", "80%", "95%"],
+      answer: 2,
+      feedback: "80% of all marine and coastal pollution originates from land-based sources such as plastic waste, agricultural runoff, and industrial discharge. (Source: Joint SDG Fund, 2024)"
+    },
+    {
+      q: "What fraction of the world's fish stocks are currently depleted?",
+      options: ["One tenth", "One fifth", "One quarter", "One third"],
+      answer: 3,
+      feedback: "More than one third of global fish stocks are now overfished and depleted, threatening food security for billions of people. (Source: CUHK, 2024)"
+    }
+  ];
+
+  let current = 0;
+  let score = 0;
+  let answered = false;
+
+  function loadQuestion() {
+    const q = questions[current];
+    document.getElementById('q-counter').textContent = `Question ${current + 1} of ${questions.length}`;
+    document.getElementById('progress').style.width = `${(current / questions.length) * 100}%`;
+    document.getElementById('question-text').textContent = q.q;
+    document.getElementById('feedback').style.display = 'none';
+    document.getElementById('next-btn').style.display = 'none';
+    answered = false;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const optionsEl = document.getElementById('options');
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('div');
+      btn.className = 'option';
+      btn.innerHTML = `<span class="option-letter">${letters[i]}</span>${opt}`;
+      btn.onclick = () => selectAnswer(i);
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(idx) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[current];
+    const options = document.querySelectorAll('.option');
+    const feedback = document.getElementById('feedback');
+
+    options.forEach(o => o.classList.add('disabled'));
+    options[q.answer].classList.add('correct');
+
+    if (idx === q.answer) {
+      score++;
+      feedback.className = 'feedback-box correct';
+      feedback.textContent = '✓ ' + q.feedback;
+    } else {
+      options[idx].classList.add('wrong');
+      feedback.className = 'feedback-box wrong';
+      feedback.textContent = '✗ Not quite. ' + q.feedback;
+    }
+
+    feedback.style.display = 'block';
+    document.getElementById('next-btn').style.display = 'inline-block';
+    document.getElementById('next-btn').textContent = current < questions.length - 1 ? 'Next Question →' : 'See My Score';
+  }
+
+  function nextQuestion() {
+    current++;
+    if (current < questions.length) {
+      loadQuestion();
+    } else {
+      showScore();
+    }
+  }
+
+  function showScore() {
+    document.getElementById('quiz-area').style.display = 'none';
+    const card = document.getElementById('score-card');
+    card.style.display = 'block';
+    document.getElementById('score-num').textContent = score;
+    document.getElementById('score-total').textContent = `/ ${questions.length}`;
+
+    let msg, sub;
+    if (score === questions.length) {
+      msg = 'Ocean Expert! 🌊'; sub = 'Perfect score — you clearly care deeply about ocean health.';
+    } else if (score >= 4) {
+      msg = 'Well done!'; sub = 'You have a solid understanding of ocean issues. Check the Facts page to learn more.';
+    } else if (score >= 2) {
+      msg = 'Good effort!'; sub = 'There\'s more to discover. Head to the Facts page to learn about our oceans.';
+    } else {
+      msg = 'Keep learning!'; sub = 'The ocean needs people who understand it. Explore our Facts page to get started.';
+    }
+
+    document.getElementById('score-msg').textContent = msg;
+    document.getElementById('score-sub').textContent = sub;
+  }
+
+  function restartQuiz() {
+    current = 0; score = 0;
+    document.getElementById('score-card').style.display = 'none';
+    document.getElementById('quiz-area').style.display = 'block';
+    loadQuestion();
+  }
+
+  loadQuestion();
+</script>
+</body>
+</html>
