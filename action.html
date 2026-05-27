@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take Action — OceanWatch</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding: 140px 0 60px; background: radial-gradient(ellipse at 50% 0%, rgba(14,58,92,0.6) 0%, transparent 70%); border-bottom: 1px solid rgba(20,198,204,0.1); text-align: center; }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .action-card {
+      background: var(--ocean);
+      border: 1px solid rgba(20,198,204,0.12);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .action-card:hover { border-color: rgba(20,198,204,0.35); transform: translateY(-4px); }
+
+    .action-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(20,198,204,0.15);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .action-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+    .action-title { color: var(--white); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .action-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ORGS */
+    .orgs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .org-card {
+      background: var(--ocean);
+      border: 1px solid rgba(20,198,204,0.12);
+      border-radius: 8px;
+      padding: 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      transition: border-color 0.25s;
+    }
+
+    .org-card:hover { border-color: rgba(20,198,204,0.3); }
+
+    .org-logo {
+      width: 52px; height: 52px;
+      border-radius: 8px;
+      background: rgba(10,37,64,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(20,198,204,0.15);
+    }
+
+    .org-info h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .org-info p { color: var(--muted); font-size: 0.8rem; line-height: 1.5; margin-bottom: 0.75rem; }
+    .org-link { color: var(--glow); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
+    .org-link:hover { color: var(--white); }
+
+    /* IMPACT BAR */
+    .impact-section {
+      background: var(--ocean);
+      border: 1px solid rgba(20,198,204,0.15);
+      border-radius: 12px;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      text-align: center;
+    }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 2rem; }
+    .impact-item span:first-child { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--glow); display: block; }
+    .impact-item span:last-child { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ocean<span>Watch</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="facts.html">Facts</a></li>
+    <li><a href="quiz.html">Quiz</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="action.html" class="active">Take Action</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-tag">Make a Difference</span>
+    <h1 class="section-title">Take Action</h1>
+    <p class="section-sub" style="margin: 0 auto;">Learning about the problem is the first step. Here is what you can actually do to help protect our oceans.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <div class="impact-section fade-up">
+      <span class="section-tag">Why it matters</span>
+      <h2 class="section-title" style="font-size:1.75rem;">Individual action adds up</h2>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <span>3B+</span>
+          <span>People depending on ocean for food</span>
+        </div>
+        <div class="impact-item">
+          <span>50%</span>
+          <span>Of our oxygen from the ocean</span>
+        </div>
+        <div class="impact-item">
+          <span>1 in 6</span>
+          <span>Jobs globally tied to marine resources</span>
+        </div>
+      </div>
+    </div>
+
+    <span class="section-tag">What you can do</span>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">Everyday actions that help</h2>
+    <div class="actions-grid">
+      <div class="action-card fade-up-1">
+        <div class="action-number">01</div>
+        <span class="action-icon">🧴</span>
+        <div class="action-title">Reduce single-use plastic</div>
+        <p class="action-desc">Say no to plastic bags, straws, and bottles. Switch to reusable alternatives. This directly reduces the 17M+ tons of plastic entering the ocean each year.</p>
+      </div>
+      <div class="action-card fade-up-2">
+        <div class="action-number">02</div>
+        <span class="action-icon">🏖️</span>
+        <div class="action-title">Join a beach cleanup</div>
+        <p class="action-desc">Beach cleanups remove plastic before it reaches the ocean. Organisations like the Ocean Conservancy run regular events you can join locally.</p>
+      </div>
+      <div class="action-card fade-up-3">
+        <div class="action-number">03</div>
+        <span class="action-icon">🐟</span>
+        <div class="action-title">Choose sustainable seafood</div>
+        <p class="action-desc">Look for MSC-certified seafood. Avoiding overfished species directly supports the recovery of depleted fish stocks around the world.</p>
+      </div>
+      <div class="action-card fade-up-1">
+        <div class="action-number">04</div>
+        <span class="action-icon">📢</span>
+        <div class="action-title">Sign ocean petitions</div>
+        <p class="action-desc">Political action starts with public pressure. Sign petitions supporting marine protected areas, plastic bans, and sustainable fishing regulations.</p>
+      </div>
+      <div class="action-card fade-up-2">
+        <div class="action-number">05</div>
+        <span class="action-icon">💡</span>
+        <div class="action-title">Reduce your carbon footprint</div>
+        <p class="action-desc">Less CO₂ means slower ocean warming and acidification. Take public transport, reduce energy use, and support renewable energy policies.</p>
+      </div>
+      <div class="action-card fade-up-3">
+        <div class="action-number">06</div>
+        <span class="action-icon">📚</span>
+        <div class="action-title">Spread the word</div>
+        <p class="action-desc">Share what you have learned. Awareness is the foundation of change. The more people understand the problem, the stronger the pressure for action.</p>
+      </div>
+    </div>
+
+    <span class="section-tag">Organisations</span>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">Who is fighting for the ocean</h2>
+    <div class="orgs-grid">
+      <div class="org-card fade-up-1">
+        <div class="org-logo">🌊</div>
+        <div class="org-info">
+          <h4>Ocean Conservancy</h4>
+          <p>Runs the International Coastal Cleanup — the world's largest volunteer event for ocean health. Over 17 million volunteers since 1986.</p>
+          <a href="https://oceanconservancy.org" target="_blank" class="org-link">Visit oceanconservancy.org ↗</a>
+        </div>
+      </div>
+      <div class="org-card fade-up-2">
+        <div class="org-logo">🐋</div>
+        <div class="org-info">
+          <h4>WWF — Oceans</h4>
+          <p>Works to protect marine habitats and fight illegal fishing. Advocates for Marine Protected Areas covering 30% of the ocean by 2030.</p>
+          <a href="https://www.worldwildlife.org/initiatives/oceans" target="_blank" class="org-link">Visit worldwildlife.org ↗</a>
+        </div>
+      </div>
+      <div class="org-card fade-up-3">
+        <div class="org-logo">☮️</div>
+        <div class="org-info">
+          <h4>Greenpeace Oceans</h4>
+          <p>Campaigns for ocean sanctuaries, an end to plastic pollution, and a halt to deep-sea mining that threatens untouched ecosystems.</p>
+          <a href="https://www.greenpeace.org/international/act/oceans/" target="_blank" class="org-link">Visit greenpeace.org ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>OceanWatch — Built in support of <a href="https://sdgs.un.org/goals/goal14">UN SDG 14: Life Below Water</a></p>
+    <p style="margin-top:0.5rem; font-size:0.75rem;">Edward Rainer Hendrawan · 0374417 · Taylor's University</p>
+  </div>
+</footer>
+</body>
+</html>
